@@ -27,5 +27,9 @@ DevTools > Network (Preserve log) while creating a ticket with a file: is there 
 `create-ticket.component.ts/.html`: staged files are tracked via the picker's `(selectionChange)` (no `@ViewChild` read at submit); uploads run in a `forkJoin` (one failure doesn't cancel the others) and finish before the modal closes and the route reloads; upload errors are persistent toasts; double-submit guarded by `isSubmitting`.
 Note: picking a file does not upload anything, so the client does not need to "wait" after choosing; uploads start on Submit.
 
-## Deploy / verify
+## Deployed 2026-10-29
+`ng build --configuration production` (API URL tte.ticket.vncconsultancy.com/API) copied to `C:\Sites\TechnoTech\SupportDesk.UI` on AdvinProd01 (IIS site `tte.ticket.vnccy.com`, also serves technoerp.vnccy.com); server `web.config` left untouched. Previous UI backed up to `C:\Sites\TechnoTech\BackUp_UI\UI_20261029_1213`; rollback = copy that folder back. Live site confirmed serving the new `main.adb123874670df01.js` / `747.582dcd4ad499845e.js`. Not yet verified with a real ticket + file. Old hashed chunks remain in the folder (harmless).
+Note: `ng build` catches template errors that `tsc --noEmit` does not (Angular 16 has no spread in templates).
+
+## Deploy / verify (steps)
 Rebuild and deploy the Angular client, create a ticket with a file, then check `SELECT * FROM ana.AttachmentMaster WHERE MasterId = <new TicketId>` and the ticket's Attachments section.
