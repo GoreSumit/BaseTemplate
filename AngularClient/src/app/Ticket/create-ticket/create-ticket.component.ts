@@ -46,6 +46,10 @@ export class CreateTicketComponent implements OnInit {
   stagedFiles: File[] = [];
   isSubmitting = false;
 
+  onFilesChanged(files: File[]): void {
+    this.stagedFiles = [...files];
+  }
+
   constructor(private _ticketService: TicketService,
     private userService: UserService,
     private modalService: NgbModal,
